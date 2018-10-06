@@ -10,6 +10,18 @@ export default [
       { path: '/user/register-result', component: './User/RegisterResult' },
     ],
   },
+  {
+    path: '/myserver',
+    component: '../layouts/MainLayout',
+    Routes: ['src/pages/Authorized'],
+    authority: ['admin', 'user'],
+    routes: [
+      {
+        path: '/myserver/IndexPage',
+        component: './IndexPage/IndexPage.js',
+      },
+    ],
+  },
   // app
   {
     path: '/',
@@ -18,7 +30,7 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/analysis' },
+      { path: '/', redirect: '/myserver/IndexPage' },
       {
         path: '/dashboard',
         name: 'dashboard',

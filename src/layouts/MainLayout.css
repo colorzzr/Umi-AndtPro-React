@@ -1,0 +1,19 @@
+
+.normal {
+  display: flex;
+  flex-direction: column;
+  /* height: 1000px; */
+  width: 100%;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+.main {
+  padding: 0 8px;
+  flex: 1 0 auto;
+}
