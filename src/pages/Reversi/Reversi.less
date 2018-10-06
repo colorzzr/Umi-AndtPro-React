@@ -1,0 +1,87 @@
+ul li {
+  list-style-type: none;
+}
+
+.chessplane {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 600px;
+  height: 500px;
+
+  /*border: 2px solid black;*/
+}
+
+.chessplane li {
+  border: 2px solid black;
+  background-color: #228a22;
+  height: 65px;
+  width: 65px;
+}
+
+.chessplane li:hover {
+  background-color: #c4c;
+
+  /* transition-delay: 10ms; */
+  transition-duration: 100ms;
+}
+
+.chessplane li img {
+  height: 100%;
+  width: 100%;
+  align-items: center;
+}
+
+.header {
+  font-size: 60px;
+  text-align: center;
+  margin: 20px auto;
+  width: 100%;
+  text-shadow: 2px 2px 10px #000;
+}
+
+.headHolder {
+  width: 100%;
+
+  /* background-color: #444aaa; */
+}
+
+.scoreBoardTag {
+  /* margin: auto 10px; */
+  margin-left: 10px;
+  width: 80%;
+  height: 80%;
+  border: solid green;
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.AIUserTag {
+  /* margin-right: 10px; */
+  margin: auto 10px;
+}
+
+.AIUserTag p {
+  font-size: 40px;
+  text-shadow: 2px 2px 10px #000;
+  text-align: center;
+  width: 150px;
+  height: 100px;
+
+  /* border: solid green; */
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.wholeWindow {
+  height: 800px;
+  width: 1000px;
+  display: flex;
+  flex-wrap: wrap;
+  border: 2px solid black;
+  margin: 10px auto;
+  align-content: center;
+  justify-content: space-around;
+
+  /* float: top; */
+}

@@ -20,6 +20,30 @@ export default [
         path: '/myserver/IndexPage',
         component: './IndexPage/IndexPage.js',
       },
+      {
+        path: '/myserver/counter',
+        component: './Counter.js',
+      },
+      {
+        path: '/myserver/calculator',
+        component: './Calculator/CalculatorComp.js',
+      },
+      {
+        path: '/myserver/PersonalInfo',
+        component: './Personal Info/PersonInfo.js',
+      },
+      {
+        path: '/myserver/Reversi',
+        component: './Reversi/Reversi.js',
+      },
+      {
+        path: '/myserver/TubeGame',
+        component: './Tunel Game/TubeGame.js',
+      },
+      {
+        path: '/myserver/History',
+        component: './History/HistoryTable.js',
+      },
     ],
   },
   // app

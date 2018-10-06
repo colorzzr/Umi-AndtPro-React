@@ -43,44 +43,44 @@ class Header extends PureComponent {
         <Row gutter={32} className={style.Header}>
           <Col span={22}>
             <Menu selectedKeys={[location.pathname]} mode="horizontal" theme="dark">
-              <Menu.Item key="/PersonalInfo">
-                <Link to="/PersonalInfo">
+              <Menu.Item key="/myserver/PersonalInfo">
+                <Link to="/myserver/PersonalInfo">
                   <Icon type="info-circle" theme="outlined" />
                   Myself
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/">
-                <Link to="/">
+              <Menu.Item key="/myserver/IndexPage">
+                <Link to="/myserver/IndexPage">
                   <Icon type="home" />
                   Home
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/counter">
-                <Link to="/counter">
+              <Menu.Item key="/myserver/counter">
+                <Link to="/myserver/counter">
                   <Icon type="frown-circle" />
                   Counter
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/Calculator">
-                <Link to="/Calculator">
+              <Menu.Item key="/myserver/Calculator">
+                <Link to="/myserver/Calculator">
                   <Icon type="calculator" />
                   Calculator
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/History">
-                <Link to="/History">
+              <Menu.Item key="/myserver/History">
+                <Link to="/myserver/History">
                   <Icon type="api" />
                   History
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/TunelGame">
-                <Link to="/TunelGame">
+              <Menu.Item key="/myserver/TubeGame">
+                <Link to="/myserver/TubeGame">
                   <Icon type="smile" />
                   Tube Game
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/Reversi">
-                <Link to="/Reversi">
+              <Menu.Item key="/myserver/Reversi">
+                <Link to="/myserver/Reversi">
                   <Icon type="smile" />
                   Reversi
                 </Link>

@@ -7,6 +7,12 @@ export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }
 
+export function GenerateRandomNum(min, max) {
+  const range = max - min;
+  const rand = Math.random();
+  return min + Math.floor(range * rand);
+}
+
 export function getTimeDistance(type) {
   const now = new Date();
   const oneDay = 1000 * 60 * 60 * 24;
