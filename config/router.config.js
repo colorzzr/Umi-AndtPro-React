@@ -30,7 +30,7 @@ export default [
       },
       {
         path: '/myserver/PersonalInfo',
-        component: './Personal Info/PersonInfo.js',
+        component: './PersonInfo/PersonInfo.js',
       },
       {
         path: '/myserver/Reversi',
@@ -38,7 +38,7 @@ export default [
       },
       {
         path: '/myserver/TubeGame',
-        component: './Tunel Game/TubeGame.js',
+        component: './TubeGame/TubeGame.js',
       },
       {
         path: '/myserver/History',
