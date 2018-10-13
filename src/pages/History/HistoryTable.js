@@ -3,15 +3,6 @@ import { connect } from 'dva';
 import { Table } from 'antd';
 import { Chart, Axis, Tooltip, Geom } from 'bizcharts';
 
-const Parse = require('parse/node');
-
-Parse.initialize('Calculator', 'UpdKbelU7zvtsCCW', 'jQAr0Xqhbkw45mSW');
-// change URL to server ip not localhost
-Parse.serverURL = 'http://18.223.112.55:8080/v1';
-// Parse.serverURL = 'http://127.0.0.1:8080/v1';
-
-Parse.masterKey = 'jQAr0Xqhbkw45mSW';
-
 const cols = {
   count: { min: 0 },
   date: {},
