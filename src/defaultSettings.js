@@ -20,3 +20,12 @@ Parse.serverURL = 'http://18.223.112.55:8080/v1';
 // Parse.serverURL = 'http://127.0.0.1:8080/v1';
 
 Parse.masterKey = 'jQAr0Xqhbkw45mSW';
+
+//
+console.log('------Save new Record------');
+const DayRecord = Parse.Object.extend('DayRecord');
+const dayRecord = new DayRecord();
+
+// dayRecord.set("Login Date", new Date());
+
+dayRecord.save();
