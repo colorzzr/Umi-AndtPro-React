@@ -82,7 +82,7 @@ function Counter({ dispatch, counterMod, loading }) {
             <Button onClick={minus}> minus ! </Button>
           </Col>
         </Row>
-        <Link to={`/Users/${value}`}>
+        <Link to={`/myserver/user/${value}`}>
           <Button>查看详情</Button>
         </Link>
       </Spin>

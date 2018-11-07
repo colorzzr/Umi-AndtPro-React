@@ -44,6 +44,18 @@ export default [
         path: '/myserver/History',
         component: './History/HistoryTable.js',
       },
+      {
+        path: '/myserver/user/:id',
+        component: './Reversi/Reversi.js',
+      },
+      {
+        path: '/myserver/LoginPage',
+        component: './Login.js',
+      },
+      {
+        path: '/myserver/Register',
+        component: './Register/Register.js',
+      },
     ],
   },
   // app

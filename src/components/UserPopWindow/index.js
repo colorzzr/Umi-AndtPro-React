@@ -3,22 +3,25 @@ import { connect } from 'dva';
 import { Avatar, Popover } from 'antd';
 // import style from './index.less';
 
-const content = (
-  <div>
-    <p>Welcome!</p>
-  </div>
-);
 class UserPopWindow extends PureComponent {
   render() {
-    const { user } = this.props;
-    console.log(user);
+    const { userStatus } = this.props;
+    const { id } = userStatus;
+    console.log(userStatus);
     let userName;
 
-    if (user !== undefined) {
-      userName = <h1>{user.userName}</h1>;
+    if (userStatus !== undefined) {
+      userName = <h1>{userStatus.userName}</h1>;
     } else {
       userName = '';
     }
+
+    const content = (
+      <div>
+        <p>Welcome!</p>
+        <a href={`/myserver/user/${id}`}> info </a>
+      </div>
+    );
 
     return (
       <Popover placement="topLeft" title={userName} content={content} trigger="click">
@@ -28,8 +31,8 @@ class UserPopWindow extends PureComponent {
   }
 }
 
-export default connect(({ user }) => ({
-  user,
+export default connect(({ userStatus }) => ({
+  userStatus,
 }))(UserPopWindow);
 
 // <Avatar shape="square" size="large" icon="user" className={style.userIcon}/>
