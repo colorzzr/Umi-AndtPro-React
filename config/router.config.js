@@ -46,7 +46,7 @@ export default [
       },
       {
         path: '/myserver/user/:id',
-        component: './Reversi/Reversi.js',
+        component: './Account/Settings/Info.js',
       },
       {
         path: '/myserver/LoginPage',

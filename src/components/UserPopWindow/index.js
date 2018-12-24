@@ -6,8 +6,8 @@ import { Avatar, Popover } from 'antd';
 class UserPopWindow extends PureComponent {
   render() {
     const { userStatus } = this.props;
-    const { id } = userStatus;
     console.log(userStatus);
+
     let userName;
 
     if (userStatus !== undefined) {
@@ -19,14 +19,15 @@ class UserPopWindow extends PureComponent {
     const content = (
       <div>
         <p>Welcome!</p>
-        <a href={`/myserver/user/${id}`}> info </a>
       </div>
     );
 
     return (
-      <Popover placement="topLeft" title={userName} content={content} trigger="click">
-        <Avatar style={{ backgroundColor: '#f56a00' }} size="large" icon="user" />
-      </Popover>
+      <div>
+        <Popover placement="topLeft" title={userName} content={content} trigger="click">
+          <Avatar style={{ backgroundColor: '#f56a00' }} size="large" icon="user" />
+        </Popover>
+      </div>
     );
   }
 }
