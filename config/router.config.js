@@ -38,7 +38,7 @@ export default [
       },
       {
         path: '/myserver/TubeGame',
-        component: './Tunel Game/TubeGame.js',
+        component: './TubeGame/TubeGame.js',
       },
       {
         path: '/myserver/History',
