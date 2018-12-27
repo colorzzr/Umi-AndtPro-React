@@ -7,6 +7,51 @@ export function fixedZero(val) {
   return val * 1 < 10 ? `0${val}` : val;
 }
 
+export function getMonthStr(input) {
+  let monthStr = '';
+  switch (input) {
+    case 1:
+      monthStr = 'January';
+      break;
+    case 2:
+      monthStr = 'Feburary';
+      break;
+    case 3:
+      monthStr = 'March';
+      break;
+    case 4:
+      monthStr = 'April';
+      break;
+    case 5:
+      monthStr = 'May';
+      break;
+    case 6:
+      monthStr = 'June';
+      break;
+    case 7:
+      monthStr = 'July';
+      break;
+    case 8:
+      monthStr = 'August';
+      break;
+    case 9:
+      monthStr = 'September';
+      break;
+    case 10:
+      monthStr = 'October';
+      break;
+    case 11:
+      monthStr = 'November';
+      break;
+    case 12:
+      monthStr = 'December';
+      break;
+    default:
+      monthStr = '?? -1 month ?? go check bug !';
+  }
+  return monthStr;
+}
+
 export function GenerateRandomNum(min, max) {
   const range = max - min;
   const rand = Math.random();

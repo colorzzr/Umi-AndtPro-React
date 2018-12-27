@@ -32,6 +32,11 @@ class ReversiGame extends PureComponent {
     this.handleOk = this.handleOk.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
 
+    const { match } = this.props;
+    const { params } = match;
+    const { id } = params;
+    console.log(id);
+
     this.state = {
       map: [],
       playerPoint: 2,

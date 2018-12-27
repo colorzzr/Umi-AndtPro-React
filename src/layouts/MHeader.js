@@ -17,15 +17,15 @@ class Header extends PureComponent {
   jumpToLogin() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'login/needLogin',
+      type: 'loginedIn/needLogin',
     });
   }
 
   render() {
-    const { location, login } = this.props;
-    const { status } = login;
+    const { location, loginedIn } = this.props;
+    const { status } = loginedIn;
     let loginOrUser;
-    console.log(login);
+    console.log(loginedIn);
 
     // check whether login
     if (status === true) {
@@ -94,7 +94,7 @@ class Header extends PureComponent {
   }
 }
 
-export default connect(({ historyDatas, login }) => ({
+export default connect(({ historyDatas, loginedIn }) => ({
   historyDatas,
-  login,
+  loginedIn,
 }))(Header);

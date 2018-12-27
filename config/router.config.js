@@ -30,7 +30,7 @@ export default [
       },
       {
         path: '/myserver/PersonalInfo',
-        component: './Personal Info/PersonInfo.js',
+        component: './PersonInfo/PersonInfo.js',
       },
       {
         path: '/myserver/Reversi',
@@ -43,6 +43,18 @@ export default [
       {
         path: '/myserver/History',
         component: './History/HistoryTable.js',
+      },
+      {
+        path: '/myserver/user/:id',
+        component: './Account/Settings/Info.js',
+      },
+      {
+        path: '/myserver/LoginPage',
+        component: './Login.js',
+      },
+      {
+        path: '/myserver/Register',
+        component: './Register/Register.js',
       },
     ],
   },
