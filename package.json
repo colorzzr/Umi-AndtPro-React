@@ -52,7 +52,12 @@
     "react-document-title": "^2.0.3",
     "react-dom": "^16.5.1",
     "react-fittext": "^1.0.0",
-    "react-router-dom": "^4.3.1"
+    "react-native": "^0.57.8",
+    "react-native-tcp": "^3.3.0",
+    "react-router-dom": "^4.3.1",
+    "react-websocket": "^2.0.0",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {
     "@types/react": "^16.4.11",
@@ -79,12 +84,13 @@
     "mockjs": "^1.0.1-beta3",
     "prettier": "1.14.2",
     "pro-download": "^1.0.1",
+    "rn-nodeify": "^10.0.1",
     "stylelint": "^9.4.0",
     "stylelint-config-prettier": "^4.0.0",
     "stylelint-config-standard": "^18.0.0",
     "umi": "^2.1.1",
-    "umi-plugin-react": "^1.1.1",
-    "umi-plugin-ga": "^1.0.3"
+    "umi-plugin-ga": "^1.0.3",
+    "umi-plugin-react": "^1.1.1"
   },
   "optionalDependencies": {
     "puppeteer": "^1.6.0"

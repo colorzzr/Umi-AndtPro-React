@@ -56,6 +56,10 @@ export default [
         path: '/myserver/Register',
         component: './Register/Register.js',
       },
+      {
+        path: '/myserver/test_page',
+        component: './test/test.js',
+      },
     ],
   },
   // app

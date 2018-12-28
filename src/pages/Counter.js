@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Button, Row, Col, Spin, Alert } from 'antd';
-// import { net } from 'net';
 /*
 class Counter extends React.Component {
   constructor(props) {
