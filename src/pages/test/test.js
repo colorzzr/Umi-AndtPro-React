@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import { Button } from 'antd';
 import io from 'socket.io-client';
 import JoinRoomForm from './joinRoom';
+import RoomMsgSendForm from './roomMsgSend';
 
 // const FormItem = Form.Item;
 
@@ -73,12 +74,14 @@ class TunelGame extends PureComponent {
 
     this.defaultColorLogin = this.defaultColorLogin.bind(this);
     this.messageSend = this.messageSend.bind(this);
-    this.joinRoomTest = this.joinRoomTest.bind(this);
-    this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
+    this.changeRoom = this.changeRoom.bind(this);
+    // this.joinRoomTest = this.joinRoomTest.bind(this);
+    // this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
 
     this.state = {
       socket,
       message: [],
+      currentRoom: 'nothing',
       data: {
         protocalCode: -1,
       },
@@ -98,10 +101,6 @@ class TunelGame extends PureComponent {
         message: temp,
         data: returnMsg,
       });
-    });
-
-    socket.on('roomBoardcast', data => {
-      console.log(`roomBoardcast: ${data}`);
     });
   }
 
@@ -132,21 +131,27 @@ class TunelGame extends PureComponent {
     });
   }
 
-  joinRoomTest() {
-    const { socket } = this.state;
-    socket.emit('join');
+  // acensetor function for changing room
+  changeRoom(e) {
+    e.preventDefault();
+    this.setState({
+      currentRoom: e.target.id,
+    });
   }
+  // joinRoomTest() {
+  //   const { socket } = this.state;
+  //   socket.emit('join');
+  // }
 
-  roomBoardcastTest() {
-    const { socket } = this.state;
-    socket.emit('roomBoardcastTest');
-  }
+  // roomBoardcastTest() {
+  //   const { socket } = this.state;
+  //   socket.emit('roomBoardcastTest');
+  // }
 
   render() {
-    const { data, message, socket } = this.state;
+    const { data, message, socket, currentRoom } = this.state;
     const { protocalCode } = data;
     const msgList = [];
-    console.log(message.length);
     for (let i = 0; i < message.length; i += 1) {
       msgList.push(<li key={i}>{message[i]}</li>);
     }
@@ -163,9 +168,8 @@ class TunelGame extends PureComponent {
         <Button onClick={this.messageSend}> message send </Button>
         <br />
         <br />
-        <JoinRoomForm socket={socket} />
-
-        <Button onClick={this.roomBoardcastTest}> Room Boardcast Test </Button>
+        <JoinRoomForm socket={socket} changeRoom={this.changeRoom} currentRoom={currentRoom} />
+        <RoomMsgSendForm socket={socket} currentRoom={currentRoom} />
       </div>
     );
   }
