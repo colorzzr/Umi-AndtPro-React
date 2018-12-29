@@ -1,27 +1,9 @@
 import React, { PureComponent } from 'react';
 import { Button } from 'antd';
-
 import io from 'socket.io-client';
+import JoinRoomForm from './joinRoom';
 
-// var client = new net.Socket();
-// OR, if not shimming via package.json "browser" field:
-// var net = require('react-native-tcp')
-
-// var server = net.createServer(function(socket) {
-//   socket.write('excellent!');
-// }).listen(3000);
-
-// var client = net.createConnection(3000);
-// client.write('0:4:color:1111');
-// client.on('error', function(error) {
-//   console.log('Connected');
-//   client.write('0:4:color:1111');
-//   console.log(error)
-// });
-
-// client.on('data', function(data) {
-//   console.log('message was received', data)
-// });
+// const FormItem = Form.Item;
 
 function objDeepCopy(source) {
   // check it is the array or object
@@ -40,6 +22,43 @@ function objDeepCopy(source) {
   return sourceCopy;
 }
 
+// class JoinRoom extends PureComponent {
+//   constructor(props) {
+//     super(props);
+
+//     this.handleSubmit = this.handleSubmit.bind(this);
+
+//     this.state = {};
+//   }
+
+//   handleSubmit(e) {
+//     e.preventDefault();
+//     const { form, socket } = this.props;
+
+//     // calling the effect for search
+//     form.validateFields((err, values) => {
+//       console.log(err,values);
+//       socket.emit('join', values.roomName);
+//     });
+//   }
+
+//   render(){
+//     const { form } = this.props;
+//     const { getFieldDecorator } = form;
+//     return(
+//       <Form onSubmit={this.handleSubmit}>
+//         <FormItem key="roomName" label="Room Name">
+//           {getFieldDecorator("roomName", {})(<Input placeholder="Room Name" />)}
+//         </FormItem>
+//         <FormItem key="submitButton">
+//           <Button type="primary" htmlType="submit"> join Room Test </Button>
+//         </FormItem>
+//       </Form>
+//     );
+//   }
+// }
+// const JoinRoomForm = Form.create()(JoinRoom);
+
 class TunelGame extends PureComponent {
   constructor(props) {
     super(props);
@@ -54,6 +73,8 @@ class TunelGame extends PureComponent {
 
     this.defaultColorLogin = this.defaultColorLogin.bind(this);
     this.messageSend = this.messageSend.bind(this);
+    this.joinRoomTest = this.joinRoomTest.bind(this);
+    this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
 
     this.state = {
       socket,
@@ -77,6 +98,10 @@ class TunelGame extends PureComponent {
         message: temp,
         data: returnMsg,
       });
+    });
+
+    socket.on('roomBoardcast', data => {
+      console.log(`roomBoardcast: ${data}`);
     });
   }
 
@@ -107,14 +132,25 @@ class TunelGame extends PureComponent {
     });
   }
 
+  joinRoomTest() {
+    const { socket } = this.state;
+    socket.emit('join');
+  }
+
+  roomBoardcastTest() {
+    const { socket } = this.state;
+    socket.emit('roomBoardcastTest');
+  }
+
   render() {
-    const { data, message } = this.state;
+    const { data, message, socket } = this.state;
     const { protocalCode } = data;
     const msgList = [];
     console.log(message.length);
     for (let i = 0; i < message.length; i += 1) {
       msgList.push(<li key={i}>{message[i]}</li>);
     }
+
     return (
       <div>
         <h1>test Page</h1>
@@ -125,6 +161,11 @@ class TunelGame extends PureComponent {
         <Button onClick={this.defaultColorLogin}> default color login </Button>
         <br />
         <Button onClick={this.messageSend}> message send </Button>
+        <br />
+        <br />
+        <JoinRoomForm socket={socket} />
+
+        <Button onClick={this.roomBoardcastTest}> Room Boardcast Test </Button>
       </div>
     );
   }
