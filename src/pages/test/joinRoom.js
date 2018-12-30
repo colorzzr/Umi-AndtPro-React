@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import { Button, Input, Form } from 'antd';
+import style from './joinRoom.less';
 
 const FormItem = Form.Item;
 
@@ -33,7 +34,7 @@ class JoinRoom extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket } = this.props;
+    const { form, socket, changeRoomWhenJoin } = this.props;
     const { rooms } = this.state;
 
     // calling the effect for search
@@ -53,6 +54,9 @@ class JoinRoom extends PureComponent {
           this.setState({
             rooms: temp,
           });
+
+          // also change the chat room for parent component
+          changeRoomWhenJoin(values.roomName);
         });
       }
     });
@@ -75,7 +79,7 @@ class JoinRoom extends PureComponent {
       );
     }
 
-    let RoomNames = 'please join the room';
+    let RoomNames = 'Please Join the Room';
     // if there is nothing in array
     if (roomList.length !== 0) {
       RoomNames = 'You aare Join the Following Rooms';
@@ -83,7 +87,7 @@ class JoinRoom extends PureComponent {
 
     return (
       <div>
-        <div>
+        <div className={style.chatRoom}>
           <h3>{RoomNames}</h3>
           <h3>{`Current Room is ${currentRoom}`}</h3>
           <ul>{roomList}</ul>

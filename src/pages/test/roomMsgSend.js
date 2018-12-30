@@ -1,24 +1,25 @@
 import React, { PureComponent } from 'react';
 import { Button, Input, Form } from 'antd';
+import style from './joinRoom.less';
 
 const FormItem = Form.Item;
 
-function objDeepCopy(source) {
-  // check it is the array or object
-  const sourceCopy = source instanceof Array ? [] : {};
+// function objDeepCopy(source) {
+//   // check it is the array or object
+//   const sourceCopy = source instanceof Array ? [] : {};
 
-  const keys = Object.keys(source);
+//   const keys = Object.keys(source);
 
-  for (let i = 0; i < keys.length; i += 1) {
-    // eslint-disable-line no-use-before-define
-    if (source != null) {
-      // recursively check the obj in array
-      sourceCopy[keys[i]] =
-        typeof source[keys[i]] === 'object' ? objDeepCopy(source[keys[i]]) : source[keys[i]];
-    }
-  }
-  return sourceCopy;
-}
+//   for (let i = 0; i < keys.length; i += 1) {
+//     // eslint-disable-line no-use-before-define
+//     if (source != null) {
+//       // recursively check the obj in array
+//       sourceCopy[keys[i]] =
+//         typeof source[keys[i]] === 'object' ? objDeepCopy(source[keys[i]]) : source[keys[i]];
+//     }
+//   }
+//   return sourceCopy;
+// }
 
 class RoomMsgSend extends PureComponent {
   constructor(props) {
@@ -26,20 +27,7 @@ class RoomMsgSend extends PureComponent {
 
     this.handleSubmit = this.handleSubmit.bind(this);
 
-    this.state = {
-      roomMsg: [],
-    };
-
-    const { socket } = this.props;
-    socket.on('roomBoardcast', data => {
-      const { roomMsg } = this.state;
-      console.log(`roomBoardcast: ${data}`);
-      const temp = objDeepCopy(roomMsg);
-      temp.push(data);
-      this.setState({
-        roomMsg: temp,
-      });
-    });
+    this.state = {};
   }
 
   handleSubmit(e) {
@@ -56,19 +44,18 @@ class RoomMsgSend extends PureComponent {
   }
 
   render() {
-    const { form } = this.props;
+    const { form, message } = this.props;
     const { getFieldDecorator } = form;
 
     // forming message list
-    const { roomMsg } = this.state;
     const msgList = [];
-    for (let i = 0; i < roomMsg.length; i += 1) {
-      msgList.push(<li key={i}>{roomMsg[i]}</li>);
+    for (let i = 0; i < message.length; i += 1) {
+      msgList.push(<li key={i}>{message[i]}</li>);
     }
 
     return (
       <div>
-        <div>
+        <div className={style.chatRoom}>
           <h3>Room Message List</h3>
           <ul>{msgList}</ul>
         </div>

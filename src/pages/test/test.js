@@ -75,6 +75,7 @@ class TunelGame extends PureComponent {
     this.defaultColorLogin = this.defaultColorLogin.bind(this);
     this.messageSend = this.messageSend.bind(this);
     this.changeRoom = this.changeRoom.bind(this);
+    this.changeRoomWhenJoin = this.changeRoomWhenJoin.bind(this);
     // this.joinRoomTest = this.joinRoomTest.bind(this);
     // this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
 
@@ -100,6 +101,16 @@ class TunelGame extends PureComponent {
       this.setState({
         message: temp,
         data: returnMsg,
+      });
+    });
+
+    socket.on('roomBoardcast', data => {
+      const { message } = this.state;
+      console.log(`roomBoardcast: ${data}`);
+      const temp = objDeepCopy(message);
+      temp.push(data);
+      this.setState({
+        message: temp,
       });
     });
   }
@@ -134,8 +145,22 @@ class TunelGame extends PureComponent {
   // acensetor function for changing room
   changeRoom(e) {
     e.preventDefault();
+
+    const { currentRoom } = this.state;
+    // trucate the message when change the room
+    if (e.target.id !== currentRoom) {
+      console.log(`current:${currentRoom} change:${e.target.id}`);
+      const temp = [];
+      this.setState({
+        message: temp,
+        currentRoom: e.target.id,
+      });
+    }
+  }
+
+  changeRoomWhenJoin(roomName) {
     this.setState({
-      currentRoom: e.target.id,
+      currentRoom: roomName,
     });
   }
   // joinRoomTest() {
@@ -160,16 +185,18 @@ class TunelGame extends PureComponent {
       <div>
         <h1>test Page</h1>
         <h1> current protocal test {protocalCode}</h1>
-        <div>
-          <ul>{msgList}</ul>
-        </div>
         <Button onClick={this.defaultColorLogin}> default color login </Button>
         <br />
         <Button onClick={this.messageSend}> message send </Button>
         <br />
         <br />
-        <JoinRoomForm socket={socket} changeRoom={this.changeRoom} currentRoom={currentRoom} />
-        <RoomMsgSendForm socket={socket} currentRoom={currentRoom} />
+        <JoinRoomForm
+          socket={socket}
+          changeRoom={this.changeRoom}
+          currentRoom={currentRoom}
+          changeRoomWhenJoin={this.changeRoomWhenJoin}
+        />
+        <RoomMsgSendForm socket={socket} currentRoom={currentRoom} message={message} />
       </div>
     );
   }
