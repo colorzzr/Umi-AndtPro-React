@@ -26,6 +26,7 @@ class JoinRoom extends PureComponent {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.leaveRoom = this.leaveRoom.bind(this);
 
     this.state = {
       rooms: [],
@@ -62,6 +63,26 @@ class JoinRoom extends PureComponent {
     });
   }
 
+  leaveRoom(e) {
+    e.preventDefault();
+
+    const { socket, userName, removeRoomWhenLeave } = this.props;
+    const { rooms } = this.state;
+    let temp = objDeepCopy(rooms);
+    temp = temp.filter(value => value !== e.target.id);
+
+    // shooting the info to back
+    socket.emit('leave', userName, e.target.id, returnMsg => {
+      console.log(returnMsg);
+    });
+
+    // set state
+    removeRoomWhenLeave();
+    this.setState({
+      rooms: temp,
+    });
+  }
+
   render() {
     const { form, changeRoom, currentRoom, userName } = this.props;
     const { getFieldDecorator } = form;
@@ -72,8 +93,11 @@ class JoinRoom extends PureComponent {
     for (let i = 0; i < rooms.length; i += 1) {
       roomList.push(
         <li key={i}>
-          <Button id={rooms[i]} onClick={changeRoom}>
+          <Button id={`${rooms[i]}join`} onClick={changeRoom}>
             {rooms[i]}
+          </Button>
+          <Button id={rooms[i]} onClick={this.leaveRoom} type="danger">
+            leave
           </Button>
         </li>
       );

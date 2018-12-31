@@ -54,7 +54,7 @@ class UserLogin extends PureComponent {
 
     return (
       <div>
-        <h2 className={styles.formItem}>{`Current User${userName}`}</h2>
+        <h2 className={styles.formItem}>{`Current User ${userName}`}</h2>
         <Form onSubmit={this.handleSubmit}>
           <FormItem key="User Name" label="User Name" className={styles.formItem}>
             {getFieldDecorator('userName', {

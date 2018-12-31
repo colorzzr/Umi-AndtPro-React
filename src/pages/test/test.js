@@ -25,20 +25,13 @@ function objDeepCopy(source) {
 class TunelGame extends PureComponent {
   constructor(props) {
     super(props);
-    const socket = io('http://18.223.112.55:3000');
-    // remember the client side still need event to detect the response
-    // socket.on('connect', () => {
-    // corrosponding with(event_name, arg1, arg2, callback)
-    socket.emit('hello', 'init', 'woot', data => {
-      console.log(data);
-    });
-    // });
+    // const socket = io('http://18.223.112.55:3000');
+    const socket = io('http://localhost:3000');
 
-    this.defaultColorLogin = this.defaultColorLogin.bind(this);
     this.changeRoom = this.changeRoom.bind(this);
     this.changeRoomWhenJoin = this.changeRoomWhenJoin.bind(this);
     this.changeUserWhenLogin = this.changeUserWhenLogin.bind(this);
-    // this.joinRoomTest = this.joinRoomTest.bind(this);
+    this.removeRoomWhenLeave = this.removeRoomWhenLeave.bind(this);
     // this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
 
     this.state = {
@@ -109,15 +102,12 @@ class TunelGame extends PureComponent {
       userName,
     });
   }
-  // joinRoomTest() {
-  //   const { socket } = this.state;
-  //   socket.emit('join');
-  // }
 
-  // roomBoardcastTest() {
-  //   const { socket } = this.state;
-  //   socket.emit('roomBoardcastTest');
-  // }
+  removeRoomWhenLeave() {
+    this.setState({
+      currentRoom: 'nothing',
+    });
+  }
 
   render() {
     const { data, message, socket, currentRoom, userName } = this.state;
@@ -150,6 +140,7 @@ class TunelGame extends PureComponent {
               currentRoom={currentRoom}
               userName={userName}
               changeRoomWhenJoin={this.changeRoomWhenJoin}
+              removeRoomWhenLeave={this.removeRoomWhenLeave}
             />
           </Col>
         </Row>
