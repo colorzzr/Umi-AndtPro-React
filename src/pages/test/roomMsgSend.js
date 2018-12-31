@@ -32,19 +32,19 @@ class RoomMsgSend extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, currentRoom } = this.props;
+    const { form, socket, currentRoom, userName } = this.props;
 
     // calling the effect for search
     form.validateFields((err, values) => {
       if (!err) {
         console.log(err, values);
-        socket.emit('roomBoardcastTest', currentRoom, values.message);
+        socket.emit('roomBoardcastTest', currentRoom, values.message, userName);
       }
     });
   }
 
   render() {
-    const { form, message } = this.props;
+    const { form, message, userName } = this.props;
     const { getFieldDecorator } = form;
 
     // forming message list
@@ -60,12 +60,24 @@ class RoomMsgSend extends PureComponent {
           <ul>{msgList}</ul>
         </div>
         <Form onSubmit={this.handleSubmit}>
-          <FormItem key="message" label="Boardcast Message">
+          <FormItem key="message" className={style.formItem}>
             {getFieldDecorator('message', {
-              rules: [{ required: true, message: 'Please input room name!' }],
+              rules: [
+                {
+                  validator: (rule, value, callback) => {
+                    const errors = [];
+                    if (userName === 'nothing') {
+                      errors.push('Plz Login!');
+                    } else if (value === undefined) {
+                      errors.push('Plz Input Message!');
+                    }
+                    callback(errors);
+                  },
+                },
+              ],
             })(<Input placeholder="Message" />)}
           </FormItem>
-          <FormItem key="submitButton">
+          <FormItem key="submitButton" className={style.formItem}>
             <Button type="primary" htmlType="submit">
               {' '}
               Room Boardcast Test{' '}

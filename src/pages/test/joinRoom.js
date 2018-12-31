@@ -34,14 +34,14 @@ class JoinRoom extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, changeRoomWhenJoin } = this.props;
+    const { form, socket, changeRoomWhenJoin, userName } = this.props;
     const { rooms } = this.state;
 
     // calling the effect for search
     form.validateFields((err, values) => {
       if (!err) {
         console.log(err, values);
-        socket.emit('join', values.roomName, returnMsg => {
+        socket.emit('join', values.roomName, userName, returnMsg => {
           console.log(returnMsg);
 
           // web take care of rooms
@@ -63,7 +63,7 @@ class JoinRoom extends PureComponent {
   }
 
   render() {
-    const { form, changeRoom, currentRoom } = this.props;
+    const { form, changeRoom, currentRoom, userName } = this.props;
     const { getFieldDecorator } = form;
     const { rooms } = this.state;
 
@@ -93,12 +93,24 @@ class JoinRoom extends PureComponent {
           <ul>{roomList}</ul>
         </div>
         <Form onSubmit={this.handleSubmit}>
-          <FormItem key="roomName" label="Room Name">
+          <FormItem key="roomName" className={style.formItem}>
             {getFieldDecorator('roomName', {
-              rules: [{ required: true, message: 'Please input room name!' }],
+              rules: [
+                {
+                  validator: (rule, value, callback) => {
+                    const errors = [];
+                    if (userName === 'nothing') {
+                      errors.push('Plz Login!');
+                    } else if (value === undefined) {
+                      errors.push('Plz Entry Room Name!');
+                    }
+                    callback(errors);
+                  },
+                },
+              ],
             })(<Input placeholder="Room Name" />)}
           </FormItem>
-          <FormItem key="submitButton">
+          <FormItem key="submitButton" className={style.formItem}>
             <Button type="primary" htmlType="submit">
               {' '}
               join Room Test{' '}
