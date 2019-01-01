@@ -26,13 +26,14 @@ class UserLogin extends PureComponent {
     super(props);
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.logout = this.logout.bind(this);
 
     this.state = {};
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, changeUserWhenLogin } = this.props;
+    const { form, socket, changeUserWhenLogin, logFriend } = this.props;
 
     // calling the effect for search
     form.validateFields((err, values) => {
@@ -42,19 +43,38 @@ class UserLogin extends PureComponent {
           console.log(returnMsg);
           if (returnMsg.data === 'success') {
             changeUserWhenLogin(values.userName);
+            // and get the friends after there
+            socket.emit('queryFriend', values.userName, returnMsgy => {
+              console.log(returnMsgy);
+              if (returnMsgy.data === 'Sorry you have no friend :(\0') {
+                const temp = [];
+                logFriend(temp);
+              } else {
+                logFriend(returnMsgy.data);
+              }
+            });
           }
         });
       }
     });
   }
 
+  logout(e) {
+    e.preventDefault();
+    const { socket, changeUserWhenLogin } = this.props;
+
+    socket.emit('logout', returnMsg => {
+      console.log(returnMsg);
+    });
+    changeUserWhenLogin('nothing');
+  }
+
   render() {
     const { form, userName } = this.props;
     const { getFieldDecorator } = form;
-
-    return (
-      <div>
-        <h2 className={styles.formItem}>{`Current User ${userName}`}</h2>
+    let loginComponent;
+    if (userName === 'nothing') {
+      loginComponent = (
         <Form onSubmit={this.handleSubmit}>
           <FormItem key="User Name" label="User Name" className={styles.formItem}>
             {getFieldDecorator('userName', {
@@ -73,8 +93,20 @@ class UserLogin extends PureComponent {
             </Button>
           </FormItem>
         </Form>
-      </div>
-    );
+      );
+    } else {
+      loginComponent = (
+        <div className={styles.buttonStyle}>
+          <h2 className={styles.formItem}>{`Current User ${userName}`}</h2>
+          <Button type="danger" onClick={this.logout}>
+            {' '}
+            Logout{' '}
+          </Button>
+        </div>
+      );
+    }
+
+    return <div>{loginComponent}</div>;
   }
 }
 const UserLoginForm = Form.create()(UserLogin);

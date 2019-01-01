@@ -4,6 +4,7 @@ import io from 'socket.io-client';
 import JoinRoomForm from './joinRoom';
 import RoomMsgSendForm from './roomMsgSend';
 import UserLoginForm from './userLogin';
+import FriendListForm from './friendList';
 
 function objDeepCopy(source) {
   // check it is the array or object
@@ -32,13 +33,14 @@ class TunelGame extends PureComponent {
     this.changeRoomWhenJoin = this.changeRoomWhenJoin.bind(this);
     this.changeUserWhenLogin = this.changeUserWhenLogin.bind(this);
     this.removeRoomWhenLeave = this.removeRoomWhenLeave.bind(this);
-    // this.roomBoardcastTest = this.roomBoardcastTest.bind(this);
+    this.logFriend = this.logFriend.bind(this);
 
     this.state = {
       socket,
       message: {
         nothing: [],
       },
+      friend: [],
       currentRoom: 'nothing',
       userName: 'nothing',
       data: {
@@ -109,8 +111,14 @@ class TunelGame extends PureComponent {
     });
   }
 
+  logFriend(friend) {
+    this.setState({
+      friend,
+    });
+  }
+
   render() {
-    const { data, message, socket, currentRoom, userName } = this.state;
+    const { data, message, socket, currentRoom, userName, friend } = this.state;
     const { protocalCode } = data;
 
     return (
@@ -119,12 +127,12 @@ class TunelGame extends PureComponent {
         <h1> current protocal test {protocalCode}</h1>
         <UserLoginForm
           socket={socket}
-          c
           changeUserWhenLogin={this.changeUserWhenLogin}
           userName={userName}
+          logFriend={this.logFriend}
         />
         <Row>
-          <Col span={17}>
+          <Col span={12}>
             <RoomMsgSendForm
               socket={socket}
               currentRoom={currentRoom}
@@ -133,7 +141,16 @@ class TunelGame extends PureComponent {
             />
           </Col>
           <Col span={1} />
-          <Col span={6}>
+          <Col span={5}>
+            <FriendListForm
+              socket={socket}
+              userName={userName}
+              friend={friend}
+              logFriend={this.logFriend}
+            />
+          </Col>
+          <Col span={1} />
+          <Col span={5}>
             <JoinRoomForm
               socket={socket}
               changeRoom={this.changeRoom}
