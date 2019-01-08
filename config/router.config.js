@@ -57,8 +57,8 @@ export default [
         component: './Register/Register.js',
       },
       {
-        path: '/myserver/test_page',
-        component: './test/test.js',
+        path: '/myserver/Chat',
+        component: './Chat/chat.js',
       },
     ],
   },

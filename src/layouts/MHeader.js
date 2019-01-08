@@ -85,6 +85,12 @@ class Header extends PureComponent {
                   Reversi
                 </Link>
               </Menu.Item>
+              <Menu.Item key="/myserver/Chat">
+                <Link to="/myserver/Chat">
+                  <Icon type="credit-card" />
+                  Chat Room
+                </Link>
+              </Menu.Item>
             </Menu>
           </Col>
           <Col span={2}>{loginOrUser}</Col>

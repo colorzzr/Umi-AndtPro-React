@@ -17,3 +17,4 @@ so I would log the stuff for now.
   - create the test_page for chat
   - now able to add room and chat inside room but no user logging
   - user logout and room leave finished
+  - finish the logout, leave and friend list
