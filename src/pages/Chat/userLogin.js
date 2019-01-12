@@ -27,6 +27,7 @@ class UserLogin extends PureComponent {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.logout = this.logout.bind(this);
+    this.regiterSub = this.regiterSub.bind(this);
 
     this.state = {};
   }
@@ -54,6 +55,19 @@ class UserLogin extends PureComponent {
               }
             });
           }
+        });
+      }
+    });
+  }
+
+  regiterSub(e) {
+    e.preventDefault();
+    const { form, socket } = this.props;
+
+    form.validateFields((err, values) => {
+      if (!err) {
+        socket.emit('register', values.userName, values.password, returnMsg => {
+          console.log(returnMsg);
         });
       }
     });
@@ -90,6 +104,12 @@ class UserLogin extends PureComponent {
             <Button type="primary" htmlType="submit">
               {' '}
               Login{' '}
+            </Button>
+          </FormItem>
+          <FormItem key="regButton" className={styles.formItem}>
+            <Button type="primary" onClick={this.regiterSub}>
+              {' '}
+              Register{' '}
             </Button>
           </FormItem>
         </Form>

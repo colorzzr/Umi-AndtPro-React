@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Button, Row, Col, Spin, Alert } from 'antd';
+import $ from 'jquery';
 /*
 class Counter extends React.Component {
   constructor(props) {
@@ -56,6 +57,19 @@ function Counter({ dispatch, counterMod, loading }) {
     });
   }
 
+  function test() {
+    console.log('test');
+    $.post(
+      'http://localhost:3000',
+      {
+        first: '0:4:color:1111',
+      },
+      data => {
+        console.log(data);
+      }
+    );
+  }
+
   const value = 12313213;
 
   console.log(loading);
@@ -85,6 +99,7 @@ function Counter({ dispatch, counterMod, loading }) {
         <Link to={`/myserver/user/${value}`}>
           <Button>查看详情</Button>
         </Link>
+        <Button onClick={test}>test</Button>
       </Spin>
     </div>
   );

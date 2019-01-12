@@ -39,7 +39,13 @@ class RoomMsgSend extends PureComponent {
       if (!err) {
         console.log(err, values);
         socket.emit('roomBoardcastTest', currentRoom, values.message, userName);
+        // values.message = 'test';
       }
+    });
+
+    // then wip out the
+    form.setFieldsValue({
+      message: undefined,
     });
   }
 
