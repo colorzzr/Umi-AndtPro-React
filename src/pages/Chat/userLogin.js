@@ -34,14 +34,14 @@ class UserLogin extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, changeUserWhenLogin, logFriend } = this.props;
+    const { form, socket, changeUserWhenLogin, logFriend, setReturnMessage } = this.props;
 
     // calling the effect for search
     form.validateFields((err, values) => {
       if (!err) {
         console.log(err, values);
         socket.emit('login', values.userName, values.password, returnMsg => {
-          console.log(returnMsg);
+          setReturnMessage(returnMsg);
           if (returnMsg.data === 'success') {
             changeUserWhenLogin(values.userName);
             // and get the friends after there
@@ -62,12 +62,12 @@ class UserLogin extends PureComponent {
 
   regiterSub(e) {
     e.preventDefault();
-    const { form, socket } = this.props;
+    const { form, socket, setReturnMessage } = this.props;
 
     form.validateFields((err, values) => {
       if (!err) {
         socket.emit('register', values.userName, values.password, returnMsg => {
-          console.log(returnMsg);
+          setReturnMessage(returnMsg);
         });
       }
     });
@@ -75,10 +75,10 @@ class UserLogin extends PureComponent {
 
   logout(e) {
     e.preventDefault();
-    const { socket, changeUserWhenLogin } = this.props;
+    const { socket, changeUserWhenLogin, setReturnMessage } = this.props;
 
     socket.emit('logout', returnMsg => {
-      console.log(returnMsg);
+      setReturnMessage(returnMsg);
     });
     changeUserWhenLogin('nothing');
   }

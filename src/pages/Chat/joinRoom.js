@@ -35,7 +35,7 @@ class JoinRoom extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, changeRoomWhenJoin, userName } = this.props;
+    const { form, socket, changeRoomWhenJoin, userName, setReturnMessage } = this.props;
     const { rooms } = this.state;
 
     // calling the effect for search
@@ -43,7 +43,7 @@ class JoinRoom extends PureComponent {
       if (!err) {
         console.log(err, values);
         socket.emit('join', values.roomName, userName, returnMsg => {
-          console.log(returnMsg);
+          setReturnMessage(returnMsg);
 
           // web take care of rooms
           const temp = objDeepCopy(rooms);
@@ -66,14 +66,14 @@ class JoinRoom extends PureComponent {
   leaveRoom(e) {
     e.preventDefault();
 
-    const { socket, userName, removeRoomWhenLeave } = this.props;
+    const { socket, userName, removeRoomWhenLeave, setReturnMessage } = this.props;
     const { rooms } = this.state;
     let temp = objDeepCopy(rooms);
     temp = temp.filter(value => value !== e.target.id);
 
     // shooting the info to back
     socket.emit('leave', userName, e.target.id, returnMsg => {
-      console.log(returnMsg);
+      setReturnMessage(returnMsg);
     });
 
     // set state

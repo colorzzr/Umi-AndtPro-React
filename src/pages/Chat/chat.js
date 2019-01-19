@@ -34,6 +34,7 @@ class TunelGame extends PureComponent {
     this.changeUserWhenLogin = this.changeUserWhenLogin.bind(this);
     this.removeRoomWhenLeave = this.removeRoomWhenLeave.bind(this);
     this.logFriend = this.logFriend.bind(this);
+    this.setReturnMessage = this.setReturnMessage.bind(this);
 
     this.state = {
       socket,
@@ -43,9 +44,7 @@ class TunelGame extends PureComponent {
       friend: [],
       currentRoom: 'nothing',
       userName: 'nothing',
-      data: {
-        protocalCode: -1,
-      },
+      data: '',
     };
 
     // taking the thread for broadcast
@@ -60,7 +59,6 @@ class TunelGame extends PureComponent {
       console.log(temp);
       this.setState({
         message: temp,
-        data: returnMsg,
       });
     });
 
@@ -75,17 +73,10 @@ class TunelGame extends PureComponent {
     });
   }
 
-  // acensetor function for changing room
-  changeRoom(e) {
-    e.preventDefault();
-
-    const { currentRoom } = this.state;
-    // trucate the message when change the room
-    if (e.target.id !== currentRoom) {
-      this.setState({
-        currentRoom: e.target.id,
-      });
-    }
+  setReturnMessage(returnMsg) {
+    this.setState({
+      data: returnMsg.data,
+    });
   }
 
   changeRoomWhenJoin(roomName) {
@@ -97,6 +88,19 @@ class TunelGame extends PureComponent {
       currentRoom: roomName,
       message: temp,
     });
+  }
+
+  // acensetor function for changing room
+  changeRoom(e) {
+    e.preventDefault();
+
+    const { currentRoom } = this.state;
+    // trucate the message when change the room
+    if (e.target.id !== currentRoom) {
+      this.setState({
+        currentRoom: e.target.id,
+      });
+    }
   }
 
   changeUserWhenLogin(userName) {
@@ -119,17 +123,18 @@ class TunelGame extends PureComponent {
 
   render() {
     const { data, message, socket, currentRoom, userName, friend } = this.state;
-    const { protocalCode } = data;
+    // const { protocalCode } = data;
 
     return (
       <div>
-        <h1>test Page</h1>
-        <h1> current protocal test {protocalCode}</h1>
+        <h1> Web Chat!</h1>
+        <h1> current Message: {data}</h1>
         <UserLoginForm
           socket={socket}
           changeUserWhenLogin={this.changeUserWhenLogin}
           userName={userName}
           logFriend={this.logFriend}
+          setReturnMessage={this.setReturnMessage}
         />
         <Row>
           <Col span={12}>
@@ -147,6 +152,7 @@ class TunelGame extends PureComponent {
               userName={userName}
               friend={friend}
               logFriend={this.logFriend}
+              setReturnMessage={this.setReturnMessage}
             />
           </Col>
           <Col span={1} />
@@ -158,6 +164,7 @@ class TunelGame extends PureComponent {
               userName={userName}
               changeRoomWhenJoin={this.changeRoomWhenJoin}
               removeRoomWhenLeave={this.removeRoomWhenLeave}
+              setReturnMessage={this.setReturnMessage}
             />
           </Col>
         </Row>

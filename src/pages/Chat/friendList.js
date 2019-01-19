@@ -32,7 +32,7 @@ class FriendList extends PureComponent {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { form, socket, userName, logFriend } = this.props;
+    const { form, socket, userName, logFriend, setReturnMessage } = this.props;
 
     // calling the effect for search
     form.validateFields((err, values) => {
@@ -41,7 +41,7 @@ class FriendList extends PureComponent {
         // problem here the web is holding the data in total if other user is in all stuff is flushed so
         // need a method!
         socket.emit('addFriend', userName, values.friendName, returnMsg => {
-          console.log(returnMsg);
+          setReturnMessage(returnMsg);
           if (returnMsg.data === 'successfully add friend') {
             // and get the friends after there
             socket.emit('queryFriend', values.userName, returnMsgy => {
