@@ -96,9 +96,10 @@ class TunelGame extends PureComponent {
 
     const { currentRoom } = this.state;
     // trucate the message when change the room
-    if (e.target.id !== currentRoom) {
+    console.log(e.target.name, currentRoom);
+    if (e.target.name !== currentRoom) {
       this.setState({
-        currentRoom: e.target.id,
+        currentRoom: e.target.name,
       });
     }
   }

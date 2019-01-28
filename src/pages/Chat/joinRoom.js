@@ -93,7 +93,7 @@ class JoinRoom extends PureComponent {
     for (let i = 0; i < rooms.length; i += 1) {
       roomList.push(
         <li key={i}>
-          <Button id={`${rooms[i]}join`} onClick={changeRoom}>
+          <Button id={`${rooms[i]}join`} name={rooms[i]} onClick={changeRoom}>
             {rooms[i]}
           </Button>
           <Button id={rooms[i]} onClick={this.leaveRoom} type="danger">

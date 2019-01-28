@@ -55,8 +55,10 @@ class RoomMsgSend extends PureComponent {
 
     // forming message list
     const msgList = [];
-    for (let i = 0; i < message.length; i += 1) {
-      msgList.push(<li key={i}>{message[i]}</li>);
+    if (message !== undefined) {
+      for (let i = 0; i < message.length; i += 1) {
+        msgList.push(<li key={i}>{message[i]}</li>);
+      }
     }
 
     return (
