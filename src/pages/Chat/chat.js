@@ -47,26 +47,26 @@ class TunelGame extends PureComponent {
       data: '',
     };
 
-    // taking the thread for broadcast
-    socket.on('broadcast', returnMsg => {
-      const { message, currentRoom } = this.state;
-      console.log('boardcast!');
-      const { source, data } = returnMsg;
+    // // taking the thread for broadcast
+    // socket.on('broadcast', returnMsg => {
+    //   const { message, currentRoom } = this.state;
+    //   console.log('boardcast!');
+    //   const { source, data } = returnMsg;
 
-      // deep copy the array for the state change
-      const temp = objDeepCopy(message);
-      temp[currentRoom].push(`${source}:${data}`);
-      console.log(temp);
-      this.setState({
-        message: temp,
-      });
-    });
+    //   // deep copy the array for the state change
+    //   const temp = objDeepCopy(message);
+    //   temp[currentRoom].push(`${source}:${data}`);
+    //   console.log(temp);
+    //   this.setState({
+    //     message: temp,
+    //   });
+    // });
 
-    socket.on('roomBoardcast', data => {
-      const { message, currentRoom } = this.state;
-      console.log(`roomBoardcast: ${data}`);
+    socket.on('roomBoardcast', (data, fromWhichRoom) => {
+      const { message } = this.state;
+      console.log(`roomBoardcast: ${data}, from ${fromWhichRoom}`);
       const temp = objDeepCopy(message);
-      temp[currentRoom].push(data);
+      temp[fromWhichRoom].push(data);
       this.setState({
         message: temp,
       });

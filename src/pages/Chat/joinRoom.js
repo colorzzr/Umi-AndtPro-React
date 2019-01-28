@@ -42,6 +42,8 @@ class JoinRoom extends PureComponent {
     form.validateFields((err, values) => {
       if (!err) {
         console.log(err, values);
+        // also change the chat room for parent component
+        changeRoomWhenJoin(values.roomName);
         socket.emit('join', values.roomName, userName, returnMsg => {
           setReturnMessage(returnMsg);
 
@@ -55,9 +57,6 @@ class JoinRoom extends PureComponent {
           this.setState({
             rooms: temp,
           });
-
-          // also change the chat room for parent component
-          changeRoomWhenJoin(values.roomName);
         });
       }
     });
