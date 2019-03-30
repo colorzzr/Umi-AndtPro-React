@@ -1,5 +1,14 @@
 English | [简体中文](./README.zh-CN.md) | [Русский](./README.ru-RU.md)
 
+# Getting Start
+
+```
+sudo npm install bizcharts --save
+sudo npm install dva-cli -g
+sudo npm install antd
+sudo npm install
+```
+
 # Server README
 
 This is new Server by upgrading the antd & dva to antd-pro & Umi
